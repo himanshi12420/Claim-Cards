@@ -1,0 +1,139 @@
+<% layout('layouts/boilerplate')%>
+    <div class="topDiv">
+        <div class="boxContainer">
+            <div class="box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5> Lionel Messi</h5>
+                <hr>
+                <p>Club: Barcelona</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+
+            </div>
+            <div class=" box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5>Cristiano Ronaldo</h5>
+                <hr>
+                <p>Club: Real Madrid</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+
+            </div>
+            <div class="box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5>Xavi</h5>
+                <hr>
+                <p>Club: Barcelona</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+
+            </div>
+            <div class="box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5>Andrea Pirlo</h5>
+                <hr>
+                <p>Club: Juventus</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+
+            </div>
+            <div class="box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5>Andreas Iniesta</h5>
+                <hr>
+                <p>Club: Barcelona</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+
+            </div>
+            <div class="box mb-3 col-10 offset-1" draggable="<%= currentUser? true : false%>">
+                <h5>Neymar</h5>
+                <hr>
+                <p>Club: Santos</p>
+                <% if(currentUser){ %>
+                    <button class="btn btn-success clicked">Claim</button>
+                    <% } %>
+            </div>
+            <!-- <form action="/main" method="POST"> -->
+            <% if(currentUser){ %>
+                <div class="bottomDiv">
+                    <h4>Edit</h4>
+                    <label for="replaceWith">Replace with which player: </label>
+                    <br><br>
+                    <input type="text" id="replaceWith"> <br><br>
+                    <label for="replaceBy">Replace by which player: </label>
+                    <br><br>
+                    <input type="text" id="replaceBy"> <br><br>
+                    <button class="btn btn-info replace">Edit Claim</button>
+                </div>
+                <% } %>
+                    <!-- </form> -->
+        </div>
+    </div>
+
+    <script>
+        const myUser = '<%-JSON.stringify(user)%>';
+
+        document.addEventListener('DOMContentLoaded', (e) => {
+            //e.preventDefault();
+
+            var dragSrcEl = null;
+            function handleDragStart(e) {
+                this.style.opacity = '0.4';
+                dragSrcEl = this;
+
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+            }
+
+            function handleDragOver(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                e.dataTransfer.dropEffect = 'move';
+                return false;
+            }
+
+            function handleDragEnter(e) {
+                e.preventDefault();
+                this.classList.add('over');
+            }
+
+            function handleDragLeave(e) {
+                this.classList.remove('over');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (dragSrcEl !== this) {
+                    dragSrcEl.innerHTML = this.innerHTML;
+                    this.innerHTML = e.dataTransfer.getData('text/html');
+                }
+
+                return false;
+            }
+
+            function handleDragEnd(e) {
+                this.style.opacity = '1';
+
+                items.forEach(function (item) {
+                    item.classList.remove('over');
+                });
+            }
+
+            let items = document.querySelectorAll('.boxContainer .box');
+            items.forEach(function (item) {
+                item.addEventListener('dragstart', handleDragStart, false);
+                item.addEventListener('dragover', handleDragOver, false);
+                item.addEventListener('dragenter', handleDragEnter, false);
+                item.addEventListener('dragleave', handleDragLeave, false);
+                item.addEventListener('dragend', handleDragEnd, false);
+                item.addEventListener('drop', handleDrop, false);
+            });
+        });
+
+    </script>
+
+    <script src="/javascripts/main.js"></script>

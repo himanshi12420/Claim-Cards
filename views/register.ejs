@@ -1,0 +1,85 @@
+<% layout('layouts/boilerplate')%>
+    <div class="container justify-content-center align-items-center mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Register</h5>
+                        <form action="/register" method="POST" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input class="form-control" type="text" name="firstName" id="firstName"
+                                    pattern="[A-Za-z]{3,}" autofocus required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input class="form-control" type="text" name="lastName" id="lastName"
+                                    pattern="[A-Za-z]{3,}" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-control" type="email" name="email" id="email" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control" type="password" name="password" id="password"
+                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
+                                <div class="invalid-feedback">
+                                    Password must contain at least one number, one uppercase, one lowercase and atleast
+                                    6 or more characters.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="contact">Contact Number</label>
+                                <input class="form-control" type="tel" pattern="[6-9]{1}[0-9]{9}" name="contact"
+                                    id="contact" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid contact number.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="country">Football/country you support</label>
+                                <input class="form-control" type="text" name="country" id="country" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            'use strict'
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
